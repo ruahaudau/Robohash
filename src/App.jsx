@@ -1,19 +1,23 @@
 import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+import './App.scss'
+import CardList from './component/card-list/card-list.component'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [monsters, setMonster] = useState([]);
+
+  useEffect(() => {
+    const response = fetch('https://jsonplaceholder.typicode.com/users')
+      .then((response) => response.json())
+      .then((data) =>setMonster(data))
+    }, []);
+  console.log(monsters);
+
   return (
-    <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-    </>
+    <CardList monsters={monsters}></CardList>
   )
 }
 
